@@ -43,7 +43,6 @@ RUN set -x \
     && rm -rf /tmp/* \
     && mkdir /etc/my.cnf.d \
     && wget https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup \
-    && echo "99c7f4a3473a397d824d5f591274c2a4f5ebf6dc292eea154800bbaca04ddc7e mariadb_es_repo_setup" | sha256sum -c - \
     && chmod +x mariadb_es_repo_setup \
     && ./mariadb_es_repo_setup --token="$MARIADB_TOKEN" --apply --mariadb-server-version="$MARIADB_SERVER_VERSION" \
     && yum install -y \
