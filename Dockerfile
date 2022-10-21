@@ -52,7 +52,6 @@ RUN set -x \
            MariaDB-shared \
            MariaDB-backup \
     && dnf clean all \
-    && pip install --upgrade pip \
     && rm -rf /var/cache/dnf
 
 COPY bin/*.sh /usr/local/bin/
