@@ -2,23 +2,46 @@
 # Project build information
 #------------------------------------------------------------------
 
+VERSION=${CIRCLE_SHA1}
+IMAGE=website:dev-${VERSION}
+BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+# Load Secrets from CircleCI and pass in to build script as a variable to be set within the container
 
 #------------------------------------------------------------------
 # CI targets
 #------------------------------------------------------------------
 
 build:
-	docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+	docker build --build-arg BUILD_DATE="${BUILD_DATE}" \
+							 --build-arg VCS_REF="1" \
+							 --build-arg VERSION="${VERSION}" \
+							 --build-arg HTTPS_SETTING="on" \
+							 --build-arg IMAGE_VERSION="${IMAGE}" \
+							 -t ${IMAGE} .
+
+push-to-digitalocean:
+	doctl registry login
+	docker tag ${IMAGE} ${DO_REPO}/${IMAGE}
+	docker push ${DO_REPO}/${IMAGE}
+
+install-doctl-linux:
+	wget https://github.com/digitalocean/doctl/releases/download/v1.54.0/doctl-1.54.0-linux-amd64.tar.gz
+	tar xf doctl-1.54.0-linux-amd64.tar.gz
+	mv doctl /usr/local/bin
+	doctl auth init -t ${DO_ACCESS_TOKEN}
+
+install-docker:
+	apk add docker
+
+local-build:
+	docker build --build-arg BUILD_DATE="${BUILD_DATE}" \
 							 --build-arg VCS_REF=`git rev-parse --short HEAD` \
-							 --build-arg VERSION=`cat VERSION` \
-							 -t $(IMAGE_NAME):latest .
+							 --build-arg VERSION=${VERSION} \
+							 --build-arg HTTPS_SETTING="off" \
+ 							 --build-arg IMAGE_VERSION="${IMAGE}" \
+							 -t frontend:latest .
 
+#scan: build
 scan:
-	docker run --rm -v $(HOME):/root/.cache/ -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy --exit-code 0 --severity MEDIUM,HIGH --clear-cache --ignore-unfixed $(IMAGE_NAME)
-
-publish:
-		echo "$(DOCKERHUB_PASS)" | docker login -u "$(DOCKERHUB_USERNAME)" --password-stdin
-		IMAGE_TAG="0.0.$(CIRCLE_BUILD_NUM)"
-		docker tag $(IMAGE_NAME):latest $(IMAGE_NAME):${IMAGE_TAG}
-		docker push $(IMAGE_NAME):latest
-		docker push $(IMAGE_NAME):${IMAGE_TAG}
+	export TRIVY_TIMEOUT_SEC=360s
+	trivy image --exit-code 1 --severity HIGH,CRITICAL ${IMAGE}
