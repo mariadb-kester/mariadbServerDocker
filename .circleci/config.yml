@@ -1,37 +1,5 @@
 version: 2
 jobs:
-  checks:
-    docker:
-      - image: umutphp/php-docker-images-for-ci:7.4
-    steps:
-      - checkout
-      - run:
-          name: PHP-Lint
-          no_output_timeout: 20m
-          command: parallel-lint --exclude vendor /root/project/var/www/
-      # - run:
-      #     name:            PHP-Code-Fix
-      #     no_output_timeout: 20m
-      #     command:         phpcbf /root/project/var/www/
-      # - run:
-      #     name:            PHP-CS
-      #     no_output_timeout: 20m
-      #     command:         phpcs --extensions=php /root/project/var/www/
-      # - run:
-      #     name:            Running phpcs
-      #     command:         bash ./bin/php_cs.sh
-      # - run:               -- Runs out of RAM
-      #     name:            PHP-Var-Dump-Check
-      #     no_output_timeout: 20m
-      #     command:         var-dump-check /root/project/var/www/
-      # - run:               -- Runs out of RAM
-      #     name:            PHP Copy/Paste Detector
-      #     no_output_timeout: 20m
-      #     command:         phpcpd /root/project/var/www/
-      - run:
-          name:            PHPMD
-          no_output_timeout: 20m
-          command:         phpmd --ignore-violations-on-exit /root/project/var/www/html/code/ text cleancode, codesize, controversial, design, naming, unusedcode
   publish:
     docker:
       - image: eu.gcr.io/swade1987/kubernetes-toolkit:1.17.2
@@ -87,12 +55,8 @@ workflows:
   version: 2
   flow:
     jobs:
-      - checks
       - publish:
           filters:
             branches:
               only:
                 - main
-          requires:
-            - checks
-            # - scan

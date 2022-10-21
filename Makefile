@@ -3,7 +3,7 @@
 #------------------------------------------------------------------
 
 VERSION=${CIRCLE_SHA1}
-IMAGE=website:dev-${VERSION}
+IMAGE=mariadb-es:dev-${VERSION}
 BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 # Load Secrets from CircleCI and pass in to build script as a variable to be set within the container
 
@@ -17,6 +17,8 @@ build:
 							 --build-arg VERSION="${VERSION}" \
 							 --build-arg HTTPS_SETTING="on" \
 							 --build-arg IMAGE_VERSION="${IMAGE}" \
+                             --build-arg MARIADB_SERVER_VERSION="${MARIADB_SERVER_VERSION}" \
+                             --build-arg MARIADB_TOKEN="${MARIADB_TOKEN}" \
 							 -t ${IMAGE} .
 
 push-to-digitalocean:

@@ -1,6 +1,4 @@
 FROM centos:centos7
-ENV MARIADB_SERVER_VERSION 10.4
-ENV MARIADB_TOKEN XXXXXXXX
 
 #################################################################################
 # PLEASE NOTE YOU MUST HAVE AN ENTERPRISE MARIADB LICENSE FOR THIS INSTALLATION #
@@ -11,12 +9,12 @@ ENV MARIADB_TOKEN XXXXXXXX
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
+ARG MARIADB_SERVER_VERSION
+ARG MARIADB_TOKEN
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.name="mariadb-server" \
-      org.label-schema.description="MariaDB 10.4 Server" \
-      org.label-schema.url="https://mariadb.com/kb/en/mariadb-1040-release-notes/" \
+      org.label-schema.description="MariaDB $MARIADB_SERVER_VERSION Server" \
       org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/kesterriley/mariadb-server-dockerfile" \
       org.label-schema.vendor="Kester Riley" \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0" \
