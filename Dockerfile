@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM rockylinux:8
 
 #################################################################################
 # PLEASE NOTE YOU MUST HAVE AN ENTERPRISE MARIADB LICENSE FOR THIS INSTALLATION #
@@ -24,9 +24,9 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 
 RUN set -x \
     && groupadd -r mysql && useradd -r -g mysql mysql \
-    && yum update -y \
-    && yum install -y epel-release \
-    && yum install -y \
+    && dnf update -y \
+    && dnf install -y epel-release \
+    && dnf install -y \
       wget \
       curl \
       nmap \
@@ -45,14 +45,15 @@ RUN set -x \
     && wget https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup \
     && chmod +x mariadb_es_repo_setup \
     && ./mariadb_es_repo_setup --token="$MARIADB_TOKEN" --apply --mariadb-server-version="$MARIADB_SERVER_VERSION" \
-    && yum install -y \
+    && dnf install -y \
            MariaDB-server \
            MariaDB-client \
            galera-4 \
            MariaDB-shared \
            MariaDB-backup \
-    && yum clean all \
-    && rm -rf /var/cache/yum
+    && dnf clean all \
+    && pip install --upgrade pip \
+    && rm -rf /var/cache/dnf
 
 COPY bin/*.sh /usr/local/bin/
 COPY my.cnf /etc/
