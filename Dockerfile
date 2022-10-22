@@ -1,4 +1,4 @@
-FROM rockylinux:9-minimal
+FROM rockylinux:8
 
 #################################################################################
 # PLEASE NOTE YOU MUST HAVE AN ENTERPRISE MARIADB LICENSE FOR THIS INSTALLATION #
@@ -24,9 +24,9 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 
 RUN set -x \
     && groupadd -r mysql && useradd -r -g mysql mysql
-RUN microdnf update -y
-RUN microdnf install -y epel-release
-RUN microdnf install -y \
+RUN yum update -y
+RUN yum install -y epel-release
+RUN yum install -y \
       wget \
       curl \
       nmap \
@@ -45,14 +45,14 @@ RUN microdnf install -y \
     && mkdir /etc/my.cnf.d
 RUN wget https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup
 RUN chmod +x mariadb_es_repo_setup
-RUN ./mariadb_es_repo_setup --token="$MARIADB_TOKEN" --apply --mariadb-server-version="$MARIADB_SERVER_VERSION" --skip-check-installed
-RUN microdnf install -y \
+RUN ./mariadb_es_repo_setup --token="$MARIADB_TOKEN" --apply --mariadb-server-version="$MARIADB_SERVER_VERSION"
+RUN yum install -y \
            MariaDB-server \
            MariaDB-client \
            galera-4 \
            MariaDB-shared \
            MariaDB-backup \
-    && microdnf clean all \
+    && yum clean all \
     && rm -rf /var/cache/dnf
 
 COPY bin/*.sh /usr/local/bin/
