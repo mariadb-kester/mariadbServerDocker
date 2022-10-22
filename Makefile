@@ -46,4 +46,4 @@ local-build:
 #scan: build
 scan:
 	export TRIVY_TIMEOUT_SEC=360s
-	trivy image --exit-code 1 --severity HIGH,CRITICAL ${IMAGE}
+	trivy image --exit-code 1 --severity HIGH ${IMAGE}
