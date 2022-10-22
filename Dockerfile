@@ -22,13 +22,11 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       architecture="AMD64/x86_64" \
       mariadbVersion=$MARIADB_SERVER_VERSION
 
-RUN ping mirrors.rockylinux.org
-
 RUN set -x \
-    && groupadd -r mysql && useradd -r -g mysql mysql \
-    && dnf update -y \
-    && dnf install -y epel-release \
-    && dnf install -y \
+RUN groupadd -r mysql && useradd -r -g mysql mysql
+RUN dnf update -y
+RUN dnf install -y epel-release
+RUN dnf install -y \
       wget \
       curl \
       nmap \
@@ -41,8 +39,8 @@ RUN set -x \
       psmisc \
       hostname \
       which \
-      perl-Digest-SHA \
-    && rm -rf /tmp/* \
+      perl-Digest-SHA
+RUN rm -rf /tmp/* \
     && mkdir /etc/my.cnf.d \
     && wget https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup \
     && chmod +x mariadb_es_repo_setup \
