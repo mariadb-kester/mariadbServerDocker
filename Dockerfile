@@ -60,7 +60,7 @@ COPY my.cnf /etc/
 RUN set -ex \
     && mkdir -p /etc/my.cnf.d \
     && chown -R root:root /etc/my.cnf.d \
-    && chown -R root:root  /etc/my.cnf \
+    && chown -R root:root /etc/my.cnf \
     && chmod -R 644 /etc/my.cnf.d \
     && chmod -R 644 /etc/my.cnf \
     && chmod -R 777 /usr/local/bin/*.sh \
