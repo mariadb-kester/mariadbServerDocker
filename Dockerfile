@@ -23,10 +23,10 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       mariadbVersion=$MARIADB_SERVER_VERSION
 
 RUN set -x \
-    && groupadd -r mysql && useradd -r -g mysql mysql \
-    && microdnf update -y \
-    && microdnf install -y epel-release \
-    && microdnf install -y \
+    && groupadd -r mysql && useradd -r -g mysql mysql
+RUN microdnf update -y
+RUN microdnf install -y epel-release
+RUN microdnf install -y \
       wget \
       curl \
       nmap \
@@ -39,8 +39,8 @@ RUN set -x \
       psmisc \
       hostname \
       which \
-      perl-Digest-SHA \
-    && rm -rf /tmp/* \
+      perl-Digest-SHA
+RUN rm -rf /tmp/* \
     && mkdir /etc/my.cnf.d \
     && wget https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup \
     && chmod +x mariadb_es_repo_setup \
