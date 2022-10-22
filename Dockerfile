@@ -39,8 +39,9 @@ RUN microdnf install -y \
       psmisc \
       hostname \
       which \
-      perl-Digest-SHA
-RUN rm -rf /tmp/* \
+      perl-Digest-SHA \
+      ca-certificates \
+    && rm -rf /tmp/* \
     && mkdir /etc/my.cnf.d \
     && wget https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup \
     && chmod +x mariadb_es_repo_setup \
