@@ -24,7 +24,6 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 
 RUN set -x
 RUN groupadd -r mysql && useradd -r -g mysql mysql
-RUN dnf update -y
 RUN dnf install -y epel-release
 RUN dnf install -y \
       wget \
