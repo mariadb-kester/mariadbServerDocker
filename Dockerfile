@@ -22,7 +22,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       architecture="AMD64/x86_64" \
       mariadbVersion=$MARIADB_SERVER_VERSION
 
-RUN set -x \
+RUN set -x
 RUN groupadd -r mysql && useradd -r -g mysql mysql
 RUN dnf update -y
 RUN dnf install -y epel-release
