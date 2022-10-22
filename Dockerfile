@@ -45,7 +45,7 @@ RUN microdnf install -y \
     && mkdir /etc/my.cnf.d
 RUN wget https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup
 RUN chmod +x mariadb_es_repo_setup
-RUN ./mariadb_es_repo_setup --token="$MARIADB_TOKEN" --apply --mariadb-server-version="$MARIADB_SERVER_VERSION"
+RUN ./mariadb_es_repo_setup --token="$MARIADB_TOKEN" --apply --mariadb-server-version="$MARIADB_SERVER_VERSION" --skip-check-installed
 RUN microdnf install -y \
            MariaDB-server \
            MariaDB-client \
