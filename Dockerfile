@@ -22,6 +22,8 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       architecture="AMD64/x86_64" \
       mariadbVersion=$MARIADB_SERVER_VERSION
 
+RUN ping mirrors.rockylinux.org
+
 RUN set -x \
     && groupadd -r mysql && useradd -r -g mysql mysql \
     && dnf update -y \

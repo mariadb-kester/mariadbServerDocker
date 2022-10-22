@@ -41,7 +41,7 @@ local-build:
 							 --build-arg VERSION=${VERSION} \
 							 --build-arg HTTPS_SETTING="off" \
  							 --build-arg IMAGE_VERSION="${IMAGE}" \
-							 -t frontend:latest .
+							 -t server:latest .
 
 #scan: build
 scan:
