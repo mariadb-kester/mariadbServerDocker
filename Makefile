@@ -3,7 +3,7 @@
 #------------------------------------------------------------------
 
 VERSION=${CIRCLE_SHA1}
-IMAGE=mariadb-es:dev-${VERSION}
+IMAGE=mariadb-es:latest
 BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 # Load Secrets from CircleCI and pass in to build script as a variable to be set within the container
 
