@@ -473,6 +473,12 @@ if [[ $START_MODE = "node" ]] && [[ -f /var/lib/mysql/new-cluster ]]; then
   	shift # get rid of node argument
     echo "This server was bootstrapped as the new cluster" > /tmp/bootstrap.log
   fi
+  if [ -f "/var/lib/mysql/new-cluster" ]; then
+      echo "/var/lib/mysql/new-cluster exists."
+      ls -lrth /var/lib/mysql/new-cluster
+  else
+      echo "/var/lib/mysql/new-cluster does not exist."
+  fi
   rm -f /var/lib/mysql/new-cluster
 fi
 
