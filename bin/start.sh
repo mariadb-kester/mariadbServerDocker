@@ -479,6 +479,7 @@ if [[ $START_MODE = "node" ]] && [[ -f /var/lib/mysql/new-cluster ]]; then
   else
       echo "/var/lib/mysql/new-cluster does not exist."
   fi
+  sleep infinity
   rm -f /var/lib/mysql/new-cluster
 fi
 
