@@ -7,11 +7,15 @@ if ! whoami &> /dev/null; then
     echo "${USER_NAME:-mysql}:x:$(id -u):0:${USER_NAME:-mysql} user:${HOME}:/sbin/nologin" >> /etc/passwd
   fi
 fi
-
+echo "AA:"
+cat /etc/passwd
+echo "BB:"
+ls -lrth /var/lib/mysql
 echo "===> Starting Application"
 
 mkdir -pv /var/lib/mysql
-
+echo "CC:"
+ls -lrth /var/lib/mysql
 function err_report () {
 	echo "start.sh: Trapped error on line $1"
 	exit
@@ -473,12 +477,7 @@ if [[ $START_MODE = "node" ]] && [[ -f /var/lib/mysql/new-cluster ]]; then
   	shift # get rid of node argument
     echo "This server was bootstrapped as the new cluster" > /tmp/bootstrap.log
   fi
-  if [ -f "/var/lib/mysql/new-cluster" ]; then
-      echo "/var/lib/mysql/new-cluster exists."
-      ls -lrth /var/lib/mysql/new-cluster
-  else
-      echo "/var/lib/mysql/new-cluster does not exist."
-  fi
+  cat /tmp/bootstrap.log
   sleep infinity
   rm -f /var/lib/mysql/new-cluster
 fi
