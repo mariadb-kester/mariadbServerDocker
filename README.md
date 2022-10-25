@@ -68,12 +68,6 @@ To contribute to the *mariadbServerDocker* repository, follow these steps:
 
 Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
-### Contributors
-
-Thanks to the following people who have contributed to this project:
-
-* [@kesterriley](https://github.com/kesterriley)
-
 ### Contact
 
 If you want to contact me you can reach me at kesterriley@hotmail.com.
@@ -83,13 +77,12 @@ If you want to contact me you can reach me at kesterriley@hotmail.com.
 
 This project uses the following license: [MIT](https://github.com/mariadb-kester/mariadbServerDocker/blob/master/LICENSE).
 
-### Acknowledgements 
+### Credit 
 
-The project was initially based on the work done by:
-https://github.com/colinmollenhour/
+The project has some similarities that were based on and inspired by:
+https://github.com/colinmollenhour/mariadb-galera-swarm
 
-You will note the existence of the ./bin/start.sh script. However, over the time I have carried out significant 
-changes and added my own scripts that are used by this process.
+Who in turn had forked it from other sources.
 
 ### Disclaimer
 
