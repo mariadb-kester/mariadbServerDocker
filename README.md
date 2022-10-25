@@ -1,4 +1,4 @@
-# MariaDB MaxScale Docker Container
+# MariaDB Enterprise Server Docker Container
 
 [![License](https://img.shields.io/badge/mit-blue.svg)](https://opensource.org/licenses/mit)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/mariadb-kester/mariadbServerDocker/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/mariadb-kester/mariadbServerDocker/tree/main)
@@ -8,7 +8,7 @@
 
 This container is designed to install MariaDB Enterprise Server.
 
-**MaxScale is an Enterprise product and must have a license**
+**MariaDB Server is an Enterprise product and must have a license**
 
 The problem with a lot of Docker Database containers is that they just deliver the bare minimum , they do not 
 provide management, health monitoring, failover, replication or Galera. Hopefully all these problems are solved 
