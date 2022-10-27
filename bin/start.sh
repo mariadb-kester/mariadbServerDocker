@@ -10,7 +10,15 @@ fi
 
 echo "===> Starting Application"
 
-[ ! -d "/var/lib/mysql" ] && echo "Making Data Directory"; mkdir -pv /var/lib/mysql; chmod -R 777 /var/lib/mysql
+if [ ! -d "/var/lib/mysql" ]
+then
+  echo "Making Data Directory"
+  mkdir -pv /var/lib/mysql
+  chmod -R 777 /var/lib/mysql
+else
+  echo "Data Directory already exists"
+fi
+
 
 function err_report () {
 	echo "start.sh: Trapped error on line $1"
