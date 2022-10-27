@@ -66,7 +66,7 @@ RUN set -ex \
     && chmod -R 644 /etc/my.cnf \
     && chmod -R 777 /usr/local/bin/*.sh \
     && sed -i '$d' /etc/passwd \
-    && rm -rf /var/lib/mysql \
+    && rm -rf /var/lib/mysql/* \
     && chmod g=u /etc/passwd \
     && find /etc/my.cnf.d/ -name '*.cnf' -print0 \
         | xargs -0 grep -lZE '^(bind-address|log)' \
