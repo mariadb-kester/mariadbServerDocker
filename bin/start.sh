@@ -122,7 +122,7 @@ EOF
   if [[ $SST_METHOD =~ ^(mariabackup) ]] ; then
     cat >>/tmp/bootstrap.sql <<EOF
 CREATE USER IF NOT EXISTS '$MARIABACKUP_USER'@'localhost';
-GRANT RELOAD, PROCESS, LOCK TABLES, BINLOG MONITOR ON *.* TO '$MARIABACKUP_USER'@'localhost';
+GRANT RELOAD, PROCESS, LOCK TABLES, BINLOG MONITOR, REPLICATION CLIENT ON *.* TO '$MARIABACKUP_USER'@'localhost';
 EOF
     if [[ -n $MARIABACKUP_USER_PASSWORD ]]; then
       cat >>/tmp/bootstrap.sql <<EOF
