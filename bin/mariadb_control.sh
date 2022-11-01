@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bashOPT
 
 LOG_MESSAGE="===|mariadb_control.sh|===:"
 OPT="$@"
@@ -114,7 +114,7 @@ else
 		echo "${LOG_MESSAGE} Attempting to recover GTID positon..."
 
 		tmpfile=$(mktemp -t wsrep_recover.XXXXXX)
-		mariadbd  --wsrep-on=ON \
+		mariadbd --wsrep-on=ON \
 				--wsrep_sst_method=skip \
 				--wsrep_cluster_address=gcomm:// \
 				--skip-networking \

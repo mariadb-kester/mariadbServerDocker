@@ -122,7 +122,8 @@ EOF
   if [[ $SST_METHOD =~ ^(mariabackup) ]] ; then
     cat >>/tmp/bootstrap.sql <<EOF
 CREATE USER IF NOT EXISTS '$MARIABACKUP_USER'@'localhost';
-GRANT RELOAD, PROCESS, LOCK TABLES, BINLOG MONITOR, REPLICATION CLIENT ON *.* TO '$MARIABACKUP_USER'@'localhost';
+GRANT RELOAD, PROCESS, LOCK TABLES, REPLICATION CLIENT ON *.* TO '$MARIABACKUP_USER'@'localhost';
+GRANT BINLOG MONITOR ON *.* TO '$MARIABACKUP_USER'@'localhost';
 EOF
     if [[ -n $MARIABACKUP_USER_PASSWORD ]]; then
       cat >>/tmp/bootstrap.sql <<EOF
@@ -157,7 +158,8 @@ function startBackupStream ()
 {
   if [[ -n $BACKUPSTREAM ]]; then
      echo "Starting a backup stream on port 3305"
-  ncat --listen --keep-open --send-only --max-conns=1 3305 -c "mariabackup -u$MARIADB_USER -p$MARIADB_USER_PASSWORD --backup --slave-info --stream=xbstream --host=127.0.0.1 --user=$MARIADB_USER --password=$MARIADB_USER_PASSWORD" &
+#TODO TShould be using backup user?
+  ncat --listen --keep-open --send-only --max-conns=1 3305 -c "mariabackup -u$MARIADB_USER -p$MARIADB_USER_PASSWORD --backup --slave-info --stream=xbstream --host=127.0.0.1" &
   echo "Started ncat stream for passing backups"
   else
     echo "Not starting a backup stream"
@@ -448,7 +450,7 @@ MARIADB_MODE_ARGS=""
 if [[ $SST_METHOD =~ ^(mariabackup) ]] ; then
 
   [ -z "$MARIABACKUP_USER_PASSWORD" ] && echo "WARNING: MARIABACKUP_USER_PASSWORD is empty"
-  MARIADB_MODE_ARGS+=" --wsrep_sst_auth=$MARIABACKUP_USER:$MARIABACKUP_USER_PASSWORD"
+  #MARIADB_MODE_ARGS+=" --wsrep_sst_auth=$MARIABACKUP_USER:$MARIABACKUP_USER_PASSWORD"
 fi
 
 if [ -z "$SYSTEM_PASSWORD" ]; then
