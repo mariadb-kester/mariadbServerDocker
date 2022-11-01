@@ -1,4 +1,4 @@
-#!/bin/bashOPT
+#!/bin/bash
 
 LOG_MESSAGE="===|mariadb_control.sh|===:"
 OPT="$@"
