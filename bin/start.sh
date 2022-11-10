@@ -504,7 +504,7 @@ fi
 case $START_MODE in
 	seed)
     checkandclone
-		MARIADB_MODE_ARGS+=" --wsrep-on=ON --wsrep-new-cluster --wsrep-sst-method=$SST_METHOD "
+		MARIADB_MODE_ARGS+=" --wsrep_on=ON --wsrep_new_cluster --wsrep_sst_method=$SST_METHOD "
 		echo "Starting seed node"
 	;;
 	node)
@@ -514,7 +514,7 @@ case $START_MODE in
 			echo "List of nodes addresses/hostnames required"
 			exit 1
 		fi
-		MARIADB_MODE_ARGS+=" --wsrep-on=ON --wsrep-sst-method=$SST_METHOD"
+		MARIADB_MODE_ARGS+=" --wsrep_on=ON --wsrep_sst_method=$SST_METHOD"
 		RESOLVE=0
 		SLEEPS=0
 
@@ -522,7 +522,7 @@ case $START_MODE in
 		while true; do
 			# Allow user to touch flag file during startup
 			if [[ -f /var/lib/mysql/new-cluster ]]; then
-				MARIADB_MODE_ARGS+=" --wsrep-new-cluster"
+				MARIADB_MODE_ARGS+=" --wsrep_new_cluster"
 				echo "Found 'new-cluster' flag file. Starting new cluster."
 				rm -f /var/lib/mysql/new-cluster
 				break
