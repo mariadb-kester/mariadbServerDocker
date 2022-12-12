@@ -15,8 +15,6 @@ build:
 	docker build --build-arg BUILD_DATE="${BUILD_DATE}" \
 							 --build-arg VCS_REF="1" \
 							 --build-arg VERSION="${VERSION}" \
-							 --build-arg HTTPS_SETTING="on" \
-							 --build-arg IMAGE_VERSION="${IMAGE}" \
                              --build-arg MARIADB_SERVER_VERSION="${MARIADB_SERVER_VERSION}" \
                              --build-arg MARIADB_TOKEN="${MARIADB_TOKEN}" \
 							 -t ${IMAGE} .
@@ -39,8 +37,6 @@ local-build:
 	docker build --build-arg BUILD_DATE="${BUILD_DATE}" \
 							 --build-arg VCS_REF=`git rev-parse --short HEAD` \
 							 --build-arg VERSION=${VERSION} \
-							 --build-arg HTTPS_SETTING="off" \
- 							 --build-arg IMAGE_VERSION="${IMAGE}" \
 							 -t server:latest .
 
 #scan: build
